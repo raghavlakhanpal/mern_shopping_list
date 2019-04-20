@@ -15,7 +15,7 @@ router.get('/',(req,res)=>{
 });
 
 // Route    POST /api/items
-// Desc     Create a POST
+// Desc     Create an Item
 // Access   Public
 router.post('/',(req,res)=>{
     const newItem = new Item({
@@ -28,6 +28,19 @@ newItem
 
 });
 
+// Route    DELETE /api/items/:id
+// Desc     Delete an Item
+// Access   Public
+router.delete('/:id',(req,res)=>{
+    Item
+        .findById(req.params.id)
+        .then(item => item
+                        .remove()
+                        .then(() => res.json({success:true})))
+        .catch(err => res
+                        .status(404)
+                        .json({success:false}));
+});
 
 
 //export
